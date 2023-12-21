@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  gateway:
+    container_name: apigateway
+    build: .
+    image: apigateway
+    ports:
+      - '8080:8080'

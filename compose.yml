@@ -3,7 +3,51 @@ version: '3'
 services:
   gateway:
     container_name: apigateway
-    build: .
+    build: ./apigateway
     image: apigateway
+    environment:
+        - eureka.client.serviceUrl.defaultZone=http://discovery_server:8761/eureka/
     ports:
       - '8080:8080'
+    depends_on:
+      - discovery_server
+    networks:
+      - app_net
+  discovery_server:
+    container_name: eureka_server
+    build: ./eurekaserver
+    image: eurekaserver
+    ports:
+      - '8761:8761'
+    networks:
+      - app_net
+  first_service:
+    container_name: firstservice
+    build: ./firstservice
+    image: firstservice
+    environment:
+        - eureka.client.serviceUrl.defaultZone=http://discovery_server:8761/eureka/
+        - spring.profiles.active=docker
+    ports:
+      - '10100:10100'
+    depends_on:
+      - discovery_server
+    networks:
+      - app_net
+  second_service:
+    container_name: secondservice
+    build: ./secondservice
+    image: secondservice
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery_server:8761/eureka/
+      - spring.profiles.active=docker
+    ports:
+      - '10101:10101'
+    depends_on:
+      - discovery_server
+    networks:
+      - app_net
+
+networks:
+    app_net:
+        driver: bridge

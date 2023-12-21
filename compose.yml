@@ -13,14 +13,16 @@ services:
       - discovery_server
     networks:
       - app_net
+
   discovery_server:
     container_name: eureka_server
     build: ./eurekaserver
-    image: eurekaserver
+    image: discovery_server
     ports:
       - '8761:8761'
     networks:
       - app_net
+
   first_service:
     container_name: firstservice
     build: ./firstservice
@@ -34,6 +36,7 @@ services:
       - discovery_server
     networks:
       - app_net
+
   second_service:
     container_name: secondservice
     build: ./secondservice

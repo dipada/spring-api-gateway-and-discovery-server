@@ -14,14 +14,4 @@ public class SecondserviceApplication {
     public static void main(String[] args) {
         SpringApplication.run(SecondserviceApplication.class, args);
     }
-
-    /*
-    @LoadBalanced
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-     */
-
 }

@@ -5,7 +5,10 @@ eureka:
     hostname: localhost
   client:
     serviceUrl:
-      defaultZone: http://discovery_server:8761/eureka
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+    register-with-eureka: true
+    refresh:
+      enable: true
 
 spring:
   application:
@@ -17,11 +20,11 @@ spring:
           enabled: true
       routes:
         - id: first-service
-          uri: lb://first-service-app
+          uri: lb://firstservice
           predicates:
             - Path=/firstservice/**
         - id: second-service
-          uri: lb://second-service-app
+          uri: lb://secondservice
           predicates:
             - Path=/secondservice/**
 

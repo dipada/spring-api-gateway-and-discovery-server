@@ -3,11 +3,12 @@ server:
 
 spring:
   application:
-    name: second-service-app
+    name: secondservice
 
 eureka:
-  instance:
-    hostname: localhost
   client:
     serviceUrl:
       defaultZone: http://discovery-server:8761/eureka
+    refresh:
+      enable: true
+    register-with-eureka: true
